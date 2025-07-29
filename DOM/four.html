@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doc</title>
+    <style>
+        #insert{
+            display:flex;
+            flex-direction: row;
+            gap:30px;
+            justify-content: flex-start;
+            padding:10px;
+        }
+        #update{
+            display:flex;
+            flex-direction: row;
+            gap:30px;
+            justify-content: flex-start;
+            padding:10px;
+        }
+
+        #delete{
+            display:flex;
+            flex-direction: row;
+            gap:30px;
+            justify-content: flex-start;
+            padding:10px;
+        }
+    </style>
+</head>
+<body style="background-color: black; color:blanchedalmond">
+    <ul class="language">
+        <li>JavaScript</li>
+    </ul>
+    <div id="insert">
+        <input id="lang" placeholder="Enter a Language"/>
+        <button id="btn-1">Submit</button>
+    </div>
+    
+    <div id="update">
+        <input id="editno" placeholder="Enter item.no to edit"/>
+        <input id="editlang" placeholder="Enter new language"/>
+        <button id="btn-2">Submit</button>
+    </div>
+
+    <div id="delete">
+        <input id="delNo" placeholder="Enter item.no to edit"/>
+        <button id="btn-3">Submit</button>
+    </div>
+    
+
+</body>
+<script>
+    const submit = document.querySelector('#btn-1');
+    submit.addEventListener('click',()=>{
+        const lang = document.querySelector('#lang').value.trim();
+        if(lang){
+            optiLanguage(lang);
+            document.querySelector('#lang').value='';
+        }
+    })
+
+    const btn2 = document.querySelector('#btn-2');
+    btn2.addEventListener('click',()=>{
+        const editNo = document.querySelector('#editno').value.trim();
+        const editName = document.querySelector('#editlang').value.trim();
+
+        if(editNo && editName){
+            editLanguage(editNo, editName);
+            document.querySelector('#editno').value='';
+            document.querySelector('#editname').value='';
+        }
+    })
+
+    const btn3 = document.querySelector('#btn-3');
+
+    btn3.addEventListener('click',()=>{
+        const delNode = document.querySelector('#delNo').value.trim();
+        if(delNode){
+            deleteLanguage(delNode);
+            document.querySelector('#delNo').value=''
+        }
+    })
+
+    const language = document.querySelector('.language');
+    function addItem(langName){
+        const newLang = document.createElement('li');
+        newLang.innerHTML = `${langName}`;
+        language.appendChild(newLang);
+    }
+
+    function optiLanguage(langName){
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(`${langName}`));
+        document.getElementsByClassName('language')[0].appendChild(li);
+    }
+
+    function editLanguage(n,language){
+        const editNode = document.querySelector(`li:nth-child(${n})`)
+        const newNode = document.createElement('li');
+        newNode.appendChild(document.createTextNode(`${language}`))
+        editNode.replaceWith(newNode);
+    }
+
+    function deleteLanguage(n){
+        const node = document.querySelector(`li:nth-child(${n})`)
+        node.remove()  
+    }
+
+</script>
+</html>
